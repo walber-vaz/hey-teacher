@@ -16,10 +16,11 @@ repos:
       - id: exec-laravel-pint
         name: Laravel Pint - Code Formatter
         language: system
-        entry: bash -c './vendor/bin/pint "$@" && git add "$@"' --
+        entry: bash -c './vendor/bin/pint && git add -A'
         types: [ php ]
         always_run: true
         pass_filenames: false
+
       - id: exec-larastan
         name: Laravel Stan - Static Analysis
         language: system
@@ -27,3 +28,11 @@ repos:
         types: [ php ]
         pass_filenames: false
         always_run: true
+
+      - id: exec-php-test-parallel
+        name: PHP Test Parallel - Run Tests in Parallel
+        language: system
+        entry: php artisan test --parallel --stop-on-failure
+        types: [ php ]
+        pass_filenames: false
+
