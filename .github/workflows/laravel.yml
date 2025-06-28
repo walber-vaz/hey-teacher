@@ -32,7 +32,7 @@ jobs:
           touch database/database.sqlite
       
       - name: Install node dependency
-        run: npm run install
+        run: npm ci
         
       - name: Build assets
         run: npm run build
