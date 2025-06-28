@@ -13,13 +13,17 @@ repos:
 
   - repo: local
     hooks:
-      - id: exec laravel pint
+      - id: exec-laravel-pint
         name: Laravel Pint - Code Formatter
         language: system
-        entry: ./vendor/bin/pint
+        entry: bash -c './vendor/bin/pint "$@" && git add "$@"' --
         types: [ php ]
-      - id: exec larastan
+        always_run: true
+        pass_filenames: false
+      - id: exec-larastan
         name: Laravel Stan - Static Analysis
         language: system
-        entry: ./vendor/bin/phpstan analyze
+        entry: ./vendor/bin/phpstan analyze --error-format=table --no-progress
         types: [ php ]
+        pass_filenames: false
+        always_run: true
