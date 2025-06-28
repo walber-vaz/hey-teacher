@@ -18,3 +18,8 @@ repos:
         language: system
         entry: ./vendor/bin/pint
         types: [ php ]
+      - id: exec larastan
+        name: Laravel Stan - Static Analysis
+        language: system
+        entry: ./vendor/bin/phpstan analyze
+        types: [ php ]
