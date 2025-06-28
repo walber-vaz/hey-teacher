@@ -26,4 +26,13 @@ it('should have a question ending with a question mark', function () {
 })->todo();
 
 it('should have at least 10 characters in the question', function () {
-})->todo();
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $request = post(route('question.store'), [
+        'question' => str_repeat('a', 8) . '?',
+    ]);
+
+    $request->assertSessionHasErrors(['question' => __('validation.min.string', ['min' => 10, 'attribute' => 'question'])]);
+    assertDatabaseCount('questions', 0);
+});
