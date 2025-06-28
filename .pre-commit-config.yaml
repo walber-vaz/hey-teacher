@@ -1,0 +1,20 @@
+default_install_hook_types:
+  - pre-commit
+  - commit-msg
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: detect-aws-credentials
+        args: [ --allow-missing-credentials ]
+      - id: detect-private-key
+
+  - repo: local
+    hooks:
+      - id: exec laravel pint
+        name: Laravel Pint - Code Formatter
+        language: system
+        entry: ./vendor/bin/pint
+        types: [ php ]
