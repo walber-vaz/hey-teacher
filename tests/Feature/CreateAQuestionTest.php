@@ -23,7 +23,16 @@ it('should be able to create a new question bigger than 255 characters', functio
 });
 
 it('should have a question ending with a question mark', function () {
-})->todo();
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $request = post(route('question.store'), [
+        'question' => 'This is a question',
+    ]);
+
+    $request->assertSessionHasErrors(['question' => __('validation.ends_with', ['attribute' => 'question', 'values' => '?'])]);
+    assertDatabaseCount('questions', 0);
+});
 
 it('should have at least 10 characters in the question', function () {
     $user = User::factory()->create();
