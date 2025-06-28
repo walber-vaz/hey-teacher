@@ -1,0 +1,45 @@
+default_install_hook_types:
+  - pre-commit
+  - commit-msg
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: detect-aws-credentials
+        args: [ --allow-missing-credentials ]
+      - id: detect-private-key
+
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.2.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [ commit-msg ]
+        args: [ ]
+
+  - repo: local
+    hooks:
+      - id: exec-laravel-pint
+        name: Laravel Pint - Code Formatter
+        language: system
+        entry: bash -c './vendor/bin/pint && git add -A'
+        types: [ php ]
+        always_run: true
+        pass_filenames: false
+
+      - id: exec-larastan
+        name: Laravel Stan - Static Analysis
+        language: system
+        entry: ./vendor/bin/phpstan analyze --error-format=table --no-progress
+        types: [ php ]
+        pass_filenames: false
+        always_run: true
+
+      - id: exec-php-test-parallel
+        name: PHP Test Parallel - Run Tests in Parallel
+        language: system
+        entry: php artisan test --parallel --stop-on-failure
+        types: [ php ]
+        pass_filenames: false
+
