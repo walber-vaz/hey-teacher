@@ -30,7 +30,7 @@ it('should have a question ending with a question mark', function () {
         'question' => 'This is a question',
     ]);
 
-    $request->assertSessionHasErrors(['question' => __('validation.ends_with', ['attribute' => 'question', 'values' => '?'])]);
+    $request->assertSessionHasErrors(['question' => 'A pergunta deve terminar com um ponto de interrogação (?).']);
     assertDatabaseCount('questions', 0);
 });
 
@@ -42,6 +42,6 @@ it('should have at least 10 characters in the question', function () {
         'question' => str_repeat('a', 8) . '?',
     ]);
 
-    $request->assertSessionHasErrors(['question' => __('validation.min.string', ['min' => 10, 'attribute' => 'question'])]);
+    $request->assertSessionHasErrors(['question' => 'A pergunta deve ter pelo menos 10 caracteres.']);
     assertDatabaseCount('questions', 0);
 });
