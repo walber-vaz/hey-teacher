@@ -14,6 +14,10 @@
                     <x-btn.reset type="reset" label="Cancelar"/>
                 </div>
             </x-form>
+            <hr class="my-8 border-gray-300 dark:border-gray-700 border-dashed"/>
+            @foreach($questions as $item)
+                <x-question :question="$item"/>
+            @endforeach
         </div>
     </div>
 </x-app-layout>
